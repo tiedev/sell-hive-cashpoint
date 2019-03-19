@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" onKeyTyped="#handlePaneKeyTyped" prefHeight="527.0" prefWidth="790.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.tiedev.sellhive.cashpoint.controllers.BillingController">
+   <children>
+      <Label fx:id="label" layoutX="125.0" layoutY="165.0" prefHeight="17.0" prefWidth="118.0" text="Start" />
+      <TextField fx:id="scannerInputField" layoutX="125.0" layoutY="46.0" onInputMethodTextChanged="#handleTextChanged" onKeyTyped="#handleTextChanged" stylesheets="@styles.css" />
+      <Button fx:id="button" layoutX="125.0" layoutY="110.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Get Email" />
+      <Button fx:id="buttonCreateData" layoutX="274.0" layoutY="110.0" mnemonicParsing="false" onAction="#handleButtonCreateDataAction" text="Create Data" />
+      <Button fx:id="buttonCountSellerAndGames" layoutX="125.0" layoutY="194.0" mnemonicParsing="false" onAction="#handleButtonCountSellerAndGames" prefHeight="25.0" prefWidth="209.0" text="Count seller and games" />
+      <TableView fx:id="tableViewListSeller" layoutX="52.0" layoutY="228.0" prefHeight="162.0" prefWidth="387.0">
+        <columns>
+          <TableColumn prefWidth="167.0" text="Name" />
+          <TableColumn minWidth="0.0" prefWidth="160.0" text="#Games" />
+        </columns>
+      </TableView>
+      <TextField fx:id="textFieldNewItem" layoutX="476.0" layoutY="59.0" onKeyReleased="#handleKeyReleased" />
+      <Button fx:id="buttonAddLineItem" layoutX="645.0" layoutY="59.0" mnemonicParsing="false" onAction="#handleButtonAddLineItem" text="Add" />
+      <TableView fx:id="tableViewLineItems" layoutX="476.0" layoutY="107.0" prefHeight="235.0" prefWidth="260.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
+            <TableColumn prefWidth="75.0" text="C3" />
+        </columns>
+      </TableView>
+      <Button fx:id="buttonInvoice" layoutX="683.0" layoutY="365.0" mnemonicParsing="false" onAction="#handleButtonInvoice" text="Invoice" />
+      <TextField fx:id="textfieldIdOfSavedInvoice" layoutX="476.0" layoutY="365.0" />
+      <VBox layoutX="-1.0" prefHeight="527.0" prefWidth="790.0" />
+   </children>
+</AnchorPane>

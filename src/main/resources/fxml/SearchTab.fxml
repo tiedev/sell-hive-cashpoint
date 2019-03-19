@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="searchTab" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.tiedev.sellhive.cashpoint.controllers.SearchTabController">
+   <children>
+      <TableView fx:id="searchTblView" layoutX="28.0" layoutY="117.0" prefHeight="660.0" prefWidth="1214.0" tableMenuButtonVisible="true">
+         <columns>
+            <TableColumn prefWidth="421.0" text="%searchab.gametableview.name" />
+            <TableColumn prefWidth="192.0" text="%searchtab.gametableview.publisher" />
+            <TableColumn prefWidth="77.0" text="%searchtab.gametableview.barcode" />
+            <TableColumn prefWidth="84.0" text="%searchtab.gametableview.price" />
+            <TableColumn prefWidth="295.0" text="%searchtab.gametableview.sellername" />
+            <TableColumn prefWidth="115.0" text="%searchtab.gametableview.sellernumber" />
+         </columns>
+      </TableView>
+      <Button fx:id="searchBtn" layoutX="356.0" layoutY="80.0" mnemonicParsing="false" onAction="#handleSearchBtnOnAction" text="%searchtab.btn.search" />
+      <TextField fx:id="gameTxt" layoutX="28.0" layoutY="80.0" promptText="%searchtab.gamename" />
+      <TextField fx:id="publisherTxt" layoutX="188.0" layoutY="80.0" promptText="%searchtab.publisher" />
+      <Button fx:id="cancelBtn" layoutX="424.0" layoutY="80.0" mnemonicParsing="false" onAction="#handleCancelBtnOnAction" text="%searchtab.btn.cancel" />
+   </children>
+</AnchorPane>

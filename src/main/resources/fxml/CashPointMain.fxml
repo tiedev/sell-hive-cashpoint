@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.tiedev.sellhive.cashpoint.controllers.MainTabPaneController">
+   <children>
+      <TabPane fx:id="mainTabPane" onMouseReleased="#tabOnMouseRelease" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="%cashpointtab.title">
+             <content>
+                <fx:include fx:id="cashPointTab" source="CashPointTab.fxml" />
+             </content>
+          </Tab>
+          <Tab text="%settlementtab.title">
+             <content>
+                <fx:include fx:id="settlementTab" source="SettlementTab.fxml" />
+             </content>
+          </Tab>
+          <Tab text="%gamecheckintab.title">
+               <content>
+                  <fx:include fx:id="gameCheckinTab" source="GameCheckinTab.fxml" />
+               </content>
+          </Tab>
+          <Tab text="%dataimporttab.title">
+               <content>
+                  <fx:include fx:id="dataImportTab" source="DataImportTab.fxml" />
+               </content>
+          </Tab>
+            <Tab text="%searchtab.title">
+               <content>
+                  <fx:include fx:id="searchTab" source="SearchTab.fxml" />
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

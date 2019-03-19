@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="cashPointTab" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#handleCashPointTabKeyReleased" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.tiedev.sellhive.cashpoint.controllers.CashPointTabController">
+   <children>
+      <TextField fx:id="newItemTxt" layoutX="566.0" layoutY="59.0" onKeyReleased="#handleNewItemTxtKeyReleased" promptText="Barcode" />
+      <Button fx:id="addLineItemBtn" layoutX="735.0" layoutY="59.0" mnemonicParsing="false" onAction="#handleAddLineItemBtn" text="Add" />
+      <TableView fx:id="gamesTblView" layoutX="59.0" layoutY="107.0" prefHeight="521.0" prefWidth="1155.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="%cashpointtab.gamestblview.barcode" />
+          <TableColumn prefWidth="444.0" text="%cashpointtab.gamestblview.name" />
+            <TableColumn prefWidth="107.0" text="%cashpointtab.gamestblview.price" />
+        </columns>
+      </TableView>
+      <Button fx:id="sellBtn" layoutX="599.0" layoutY="699.0" mnemonicParsing="false" onAction="#handleSellBtn" text="Verkaufen" textFill="#ee0909">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <TextField fx:id="sumTxt" editable="false" layoutX="555.0" layoutY="639.0" />
+      <TextField fx:id="numberOfLinesTxt" editable="false" layoutX="433.0" layoutY="639.0" prefHeight="25.0" prefWidth="38.0" />
+      <Label layoutX="386.0" layoutY="643.0" text="Anzahl" />
+      <Label layoutX="493.0" layoutY="643.0" text="Summe" />
+      <Button fx:id="restartBtn" layoutX="59.0" layoutY="723.0" mnemonicParsing="false" onAction="#handleRestartBtn" text="Abbrechen">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

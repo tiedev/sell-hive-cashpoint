@@ -1,5 +1,6 @@
 package de.tiedev.sellhive.cashpoint.services;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ public class GameService {
 
 	@Autowired
 	GameRepository gameRepository;
+
+	@Autowired
+	ConfigurationService configurationService;
 	
 	public long countAll() {
 		return gameRepository.count();
@@ -62,6 +66,16 @@ public class GameService {
 		save(games);
 	}
 
+	public BigDecimal calculateFee(List<Game> games) {
+		BigDecimal feeTotal = BigDecimal.ZERO;
+		if (configurationService.hasFee2() && games.size() > configurationService.getFee1NumberOfGames()) {
+			 feeTotal.add(configurationService.getFee1fee().multiply(BigDecimal.valueOf(configurationService.getFee1NumberOfGames())));
+			 feeTotal.add(configurationService.getFee2fee().multiply(BigDecimal.valueOf(games.size() - configurationService.getFee1NumberOfGames())));
+		} else {
+			feeTotal = configurationService.getFee1fee().multiply(BigDecimal.valueOf(games.size()));
+		}
+		return feeTotal;
+	}
 	//TODO: Wird später vom SearchTabController genutzt
 	public List<Game> getGamesByNameByPublisher(String nameOfGame, String publisher) {
 //		return gameRepository.findByNameByPublisher(nameOfGame, publisher);

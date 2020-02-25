@@ -94,4 +94,9 @@ public class SettlementService {
 			sellerService.checkOut(sellers);
 		}
 	}
+	
+	public void printLabels() {
+		List<Seller> sellers = sellerService.findBySellerState(SellerState.CHECKEDIN);
+		
+	}
 }

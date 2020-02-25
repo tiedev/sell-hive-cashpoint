@@ -25,6 +25,12 @@ public class SettlementTabController {
 
 	@FXML
 	Button singleSettlementBtn;
+	
+	@FXML
+	Button printLabelBtn;
+	
+	@FXML
+	TextField scaleFactorTxt;
 
 	@FXML
 	CheckBox finalAllSettlementChkBox;
@@ -94,6 +100,12 @@ public class SettlementTabController {
 			settlementService.createSettlementForAllSellers(finalAllSettlementChkBox.isSelected());
 		}
 		resetTab();
+	}
+
+	@FXML
+	public void handlePrintLabelBtnOnAction(ActionEvent event) {
+	
+
 	}
 
 

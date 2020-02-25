@@ -115,9 +115,11 @@ public class GameCheckinTabController {
 
 				BigDecimal totalFee = BigDecimal.ZERO;
 				for (Game game : games) {
-					totalFee = totalFee.add(game.getFee());
+					//totalFee = totalFee.add(game.getFee());
 					gamesTblView.getItems().add(game);
 				}
+				
+				totalFee = gameService.calculateFee(games);
 				feeTxt.setText(moneyStringConverter.toString(totalFee));
 			}
 		} else {

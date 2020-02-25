@@ -134,7 +134,7 @@ public class SellHiveGame {
 	}
 
 	public Boolean getLabeled() {
-		return labeled;
+		return labeled != null ? labeled : Boolean.FALSE;
 	}
 
 	public void setLabeled(Boolean labeled) {

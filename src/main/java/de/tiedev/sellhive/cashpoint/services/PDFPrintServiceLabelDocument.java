@@ -20,12 +20,13 @@ import de.tiedev.sellhive.cashpoint.model.Label;
 @Component
 public class PDFPrintServiceLabelDocument {
 	
-	float conversionMM2Points = 0.352778f;
-	float labelWidth = 670f * 0.29098f;
-	float labelHeight= 300f * 0.29098f;
-	float labelInitX = 0f * 0.29098f;
-	float labelInitY = 3150f * 0.29098f;
-	float sideMargin = 100f * 0.29098f;
+	float conversionMM2Points = 0.29098f;
+	float labelWidth = 680f * conversionMM2Points;
+	float labelHeight= 365f * conversionMM2Points;
+	float labelInitX = 0f * conversionMM2Points;
+	float labelInitY = 2800f * conversionMM2Points;
+	float upperLableMargin = 50f * conversionMM2Points;
+	float leftLableMargin = 50f * conversionMM2Points;
 	float lineHeight = 15f;
 	
 
@@ -75,7 +76,8 @@ public class PDFPrintServiceLabelDocument {
 	
 	float nextY(float y) {
 		float nextY = y - labelHeight;
-		if ((nextY - labelHeight) > 0) {
+//		if ((nextY - labelHeight) > 0) {
+		if (nextY > 0) {
 			return nextY;
 		} else {
 			return labelInitY;
@@ -90,11 +92,19 @@ public class PDFPrintServiceLabelDocument {
 		
 		float y = labelInitY;
 		float x = labelInitX;
+		float lableX;
+		float lableY;
 		try {
 			page = createAndAddNewPage(doc);
 			for(Label label : labels) {
-				cont = createNewPageStream(doc, font, page, x, y);
+				lableX = x + leftLableMargin;
+				lableY = y;// - upperLableMargin;
+				cont = createNewPageStream(doc, font, page, lableX, lableY);
 				cont.showText(label.getFirstLine());
+				cont.newLine();
+				cont.showText(label.getSecondLine());
+				cont.newLine();
+				cont.showText(label.getThirdLine());
 				cont.endText();
 				cont.close();
 				x = nextX(x);
@@ -108,14 +118,6 @@ public class PDFPrintServiceLabelDocument {
 					}
 				}
 			}
-//			cont.newLine();
-//			cont.showText(Float.toString(PDRectangle.A4.getWidth()));
-//			x = x; // + xOffset;
-//			y = y + 10;
-//			cont = createNewPageStream(doc, font, page, x, y);
-//			cont.showText("Höhe:" + Float.toString(PDRectangle.A4.getHeight()));
-//			cont.endText();
-//			cont.close();
 			if (page != null) {
 				pagesForLabels.add(page);
 			}

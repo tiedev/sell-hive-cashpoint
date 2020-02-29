@@ -66,4 +66,8 @@ public class SellerSettlement {
 	public Long getSellerExternalId() {
 		return seller.getExternalId();
 	}
+	
+	public BigDecimal getSumTotal() {
+		return sumTotal;
+	}
 }

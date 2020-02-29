@@ -32,11 +32,13 @@ public class DataImportService {
 	
 	@Autowired
 	InvoiceService invoiceService;
+	
+	@Autowired
+	ConfigurationService configurationService;
 
 	@Transactional
 	public Map<Long, Seller> importSeller() {
-        List<SellHiveSeller> sellersToImport = getApi("https://sellhive.tealtoken.de/backend/cashpoint/export/sellers/PaewvtScieMpKDmeHvG82g3OX1U4YN1L", 
-        		HttpMethod.GET,
+        List<SellHiveSeller> sellersToImport = getApi(configurationService.getImportURLSeller(), HttpMethod.GET,
         		new ParameterizedTypeReference<List<SellHiveSeller>>(){});
         List<Seller> sellers = convertSellHiveSellerToSeller(sellersToImport);
         sellers = sellerService.save(sellers);
@@ -57,8 +59,7 @@ public class DataImportService {
 
 
 	public List<Game> importGames(Map<Long, Seller> sellers) {
-		List<SellHiveGame> gamesToImport = getApi("https://sellhive.tealtoken.de/backend/cashpoint/export/items/PaewvtScieMpKDmeHvG82g3OX1U4YN1L", 
-				HttpMethod.GET,
+		List<SellHiveGame> gamesToImport = getApi(configurationService.getImportURLGames(), HttpMethod.GET,
 				new ParameterizedTypeReference<List<SellHiveGame>>(){});
 		List<Game> games = convertSellHiveGameToGame(gamesToImport, sellers);
 		gameService.save(games);

@@ -15,5 +15,7 @@
       <Button fx:id="allsettlementbtn" layoutX="195.0" layoutY="314.0" mnemonicParsing="false" onAction="#handleAllSettlementBtnOnAction" text="%settlementtab.btn.allsettlement" />
       <CheckBox fx:id="finalSingleSettlementChkBox" layoutX="223.0" layoutY="60.0" mnemonicParsing="false" text="final abrechnen" />
       <CheckBox fx:id="finalAllSettlementChkBox" layoutX="46.0" layoutY="318.0" mnemonicParsing="false" text="final abrechnen" />
+      <Button fx:id="printlabelbtn" layoutX="207.0" layoutY="357.0" mnemonicParsing="false" onAction="#handlePrintLabelBtnOnAction" text="%settlementtab.btn.labels" />
+      <TextField fx:id="scaleFactorTxt" layoutX="43.0" layoutY="357.0" promptText="scale factor" />
    </children>
 </AnchorPane>

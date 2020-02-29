@@ -1,10 +1,12 @@
 package de.tiedev.sellhive.cashpoint.services;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import de.tiedev.sellhive.cashpoint.architecture.propertyconverter.MoneyStringConverter;
 import de.tiedev.sellhive.cashpoint.model.Game;
 import de.tiedev.sellhive.cashpoint.model.GameState;
 import de.tiedev.sellhive.cashpoint.model.Seller;
@@ -15,6 +17,13 @@ public class GameService {
 
 	@Autowired
 	GameRepository gameRepository;
+
+	@Autowired
+	ConfigurationService configurationService;
+	
+	
+	@Autowired
+	MoneyStringConverter moneyStringConverter;
 	
 	public long countAll() {
 		return gameRepository.count();
@@ -62,9 +71,42 @@ public class GameService {
 		save(games);
 	}
 
+	public BigDecimal calculateFee(List<Game> games) {
+		BigDecimal feeTotal = BigDecimal.ZERO;
+		if (configurationService.hasFee2() && games.size() > configurationService.getFee2NumberOfGames()) {
+			feeTotal = feeTotal.add(configurationService.getFee1fee().multiply(BigDecimal.valueOf(configurationService.getFee2NumberOfGames())));
+			int numberOfGamesWithHigherFee = games.size() > configurationService.getFee2NumberOfGames() ? games.size() - configurationService.getFee2NumberOfGames() : 0;
+			feeTotal = feeTotal.add(configurationService.getFee2fee().multiply(BigDecimal.valueOf(numberOfGamesWithHigherFee)));
+		} else {
+			feeTotal = configurationService.getFee1fee().multiply(BigDecimal.valueOf(games.size()));
+		}
+		return feeTotal;
+	}
 	//TODO: Wird später vom SearchTabController genutzt
 	public List<Game> getGamesByNameByPublisher(String nameOfGame, String publisher) {
 //		return gameRepository.findByNameByPublisher(nameOfGame, publisher);
 		return null;
 	}
+
+	public String getFeeMessage(List<Game> games) {
+		String feeMessage = new String("Gebührenberechnung \n");
+		BigDecimal basicFee = BigDecimal.ZERO;
+		if (configurationService.hasFee2() && games.size() > configurationService.getFee2NumberOfGames()) {
+			basicFee = basicFee.add(configurationService.getFee1fee().multiply(BigDecimal.valueOf(configurationService.getFee2NumberOfGames())));
+			feeMessage = feeMessage + createFeeLineItem(configurationService.getFee2NumberOfGames(), configurationService.fee1fee, basicFee) + "\n";			
+			int numberOfGamesWithHigherFee = games.size() > configurationService.getFee2NumberOfGames() ? games.size() - configurationService.getFee2NumberOfGames() : 0;
+			BigDecimal higherFee = configurationService.getFee2fee().multiply(BigDecimal.valueOf(numberOfGamesWithHigherFee));
+			feeMessage = feeMessage + createFeeLineItem(numberOfGamesWithHigherFee, configurationService.fee2fee, higherFee) + "\n";			
+		} else {
+			basicFee = configurationService.getFee1fee().multiply(BigDecimal.valueOf(games.size()));
+			feeMessage = feeMessage + createFeeLineItem(games.size(), configurationService.fee1fee, basicFee);
+		}
+		return feeMessage;
+	}
+
+	private String createFeeLineItem(int numberOfGames, BigDecimal fee, BigDecimal feeTotal) {
+		
+		return numberOfGames  + " * " + moneyStringConverter.toString(configurationService.fee1fee) + " = " + moneyStringConverter.toString(feeTotal) + " €";
+	}
+	
 }

@@ -33,6 +33,11 @@
                   <fx:include fx:id="searchTab" source="SearchTab.fxml" />
                </content>
             </Tab>
+			<Tab text="%configurationtab.title">
+               <content>
+                  <fx:include fx:id="configurationTab" source="ConfigurationTab.fxml" />
+               </content>
+            </Tab>
         </tabs>
       </TabPane>
    </children>

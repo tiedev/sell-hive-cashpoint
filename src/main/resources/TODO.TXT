@@ -4,9 +4,6 @@ RessourceBundle in FXML und SourceCode durchziehen.
 Ausgabe aller Verkäufer mit ihrem Umsatz
 Ausgabe aller Verkäufer mit ihren Spielen inkl. Verkaufsstatus
 
-Einstellungen-Tab
-- Pfad zur Dateiablage
-
 Tab Übersicht
 Suche aller Spiele eines Verkäufers inkl. Verkaufsstatus
 
@@ -15,12 +12,22 @@ PDF direkt öffnen
 Kassenstand anzeigen
 Gebühren, Verkaufte Spiele, Gesamtsumme
 
+Etikettendruck für die Abrechnung
+Pro Verkäufer ein Etikett mit Nr, Name, Anzahl der Spiele, Geld - das im Umschlag sein müsste
+
 Anleitung als PDF
 
 
 Fehler
 _______________________________________________________________
 Erledigt
+
+Einstellungen-Tab
+- Pfad zur Dateiablage
+- Import URLs festlegen
+
+Gebühr in zwei Stufen berechnen.
+
 Doppelscan ist noch möglich, muss noch abgefangen werden.
 Bei neuer Nummer suchen, muss der Tab zurückgesetzt werden.
 

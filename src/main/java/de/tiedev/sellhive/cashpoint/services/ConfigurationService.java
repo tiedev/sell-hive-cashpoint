@@ -9,10 +9,9 @@ public class ConfigurationService {
 String importURLSeller = "https://sellhive.tealtoken.de/backend/cashpoint/export/sellers/PaewvtScieMpKDmeHvG82g3OX1U4YN1L";
 String importURLGames = "https://sellhive.tealtoken.de/backend/cashpoint/export/items/PaewvtScieMpKDmeHvG82g3OX1U4YN1L";
 
-int fee1NumberOfGames = 50;
 BigDecimal fee1fee = new BigDecimal(0.5);
 
-int fee2NumberOfGames = 100;
+int fee2NumberOfGames = 30;
 BigDecimal fee2fee = new BigDecimal(0.8);
 
 public String getImportURLSeller() {
@@ -27,12 +26,7 @@ public String getImportURLGames() {
 public void setImportURLGames(String importURLGames) {
 	this.importURLGames = importURLGames;
 }
-public int getFee1NumberOfGames() {
-	return fee1NumberOfGames;
-}
-public void setFee1NumberOfGames(int fee1NumberOfGames) {
-	this.fee1NumberOfGames = fee1NumberOfGames;
-}
+
 public BigDecimal getFee1fee() {
 	return fee1fee;
 }

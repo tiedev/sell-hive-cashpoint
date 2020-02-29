@@ -25,8 +25,6 @@ public class ConfigurationTabController {
 	@FXML
 	TextField importURLSellerTxt;
 	
-	@FXML
-	TextField fee1NumberOfGamesTxt;
 	
 	@FXML
 	TextField fee2NumberOfGamesTxt;
@@ -50,7 +48,6 @@ public class ConfigurationTabController {
 	public void initialize() {
 		importURLGamesTxt.setText(configurationService.getImportURLGames());
 		importURLSellerTxt.setText(configurationService.getImportURLSeller());
-		fee1NumberOfGamesTxt.setText(String.valueOf((configurationService.getFee1NumberOfGames())));
 		fee1FeeTxt.setText(moneyStringConverter.toString(configurationService.getFee1fee()));
 		fee2NumberOfGamesTxt.setText(String.valueOf((configurationService.getFee2NumberOfGames())));
 		fee2FeeTxt.setText(moneyStringConverter.toString(configurationService.getFee2fee()));
@@ -64,9 +61,6 @@ public class ConfigurationTabController {
 			configurationService.setImportURLGames(importURLSellerTxt.getText());
 		}
 
-		if (!StringUtils.isEmpty(fee1NumberOfGamesTxt.getText())) {
-			configurationService.setFee1NumberOfGames(Integer.parseInt(fee1NumberOfGamesTxt.getText()));
-		}
 
 		if (!StringUtils.isEmpty(moneyStringConverter.fromString(fee1FeeTxt.getText()))) {
 			configurationService.setFee1fee(moneyStringConverter.fromString(fee1FeeTxt.getText()));

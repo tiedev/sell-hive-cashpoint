@@ -1,5 +1,7 @@
 package de.tiedev.sellhive.cashpoint.controllers;
 
+import java.math.BigDecimal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -68,10 +70,14 @@ public class ConfigurationTabController {
 		
 		if (!StringUtils.isEmpty(fee2NumberOfGamesTxt.getText())) {
 			configurationService.setFee2NumberOfGames(Integer.parseInt(fee2NumberOfGamesTxt.getText()));
+		} else {
+			configurationService.setFee2NumberOfGames(0);
 		}
 
 		if (!StringUtils.isEmpty(moneyStringConverter.fromString(fee2FeeTxt.getText()))) {
 			configurationService.setFee2fee(moneyStringConverter.fromString(fee2FeeTxt.getText()));
+		} else {
+			configurationService.setFee2fee(BigDecimal.ZERO);
 		}
 		
 	}

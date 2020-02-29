@@ -89,7 +89,7 @@ public class GameService {
 	}
 
 	public String getFeeMessage(List<Game> games) {
-		String feeMessage = new String("Gebührenberechnung \n");
+		String feeMessage = new String("GebÃ¼hrenberechnung \n");
 		BigDecimal basicFee = BigDecimal.ZERO;
 		if (configurationService.hasFee2() && games.size() > configurationService.getFee2NumberOfGames()) {
 			basicFee = basicFee.add(configurationService.getFee1fee().multiply(BigDecimal.valueOf(configurationService.getFee2NumberOfGames())));
@@ -106,7 +106,7 @@ public class GameService {
 
 	private String createFeeLineItem(int numberOfGames, BigDecimal fee, BigDecimal feeTotal) {
 		
-		return numberOfGames  + " * " + moneyStringConverter.toString(configurationService.fee1fee) + " = " + moneyStringConverter.toString(feeTotal) + " €";
+		return numberOfGames  + " * " + moneyStringConverter.toString(configurationService.fee1fee) + " = " + moneyStringConverter.toString(feeTotal) + " â‚¬";
 	}
 	
 }

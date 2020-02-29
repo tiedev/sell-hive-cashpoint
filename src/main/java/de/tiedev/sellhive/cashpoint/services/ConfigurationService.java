@@ -51,6 +51,6 @@ public boolean hasFee1() {
 }
 
 public boolean hasFee2() {
-	return (fee2fee != null) && fee2fee != BigDecimal.ZERO;
+	return (fee2fee != null) && !BigDecimal.ZERO.equals(fee2fee);
 }
 }

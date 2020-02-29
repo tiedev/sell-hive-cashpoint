@@ -19,7 +19,7 @@ public class PDFPrintServiceLabelDocumentTest {
 	public void setUp() {
 		labels = new ArrayList<Label>();
 		for (int i = 1; i<=40; i++) {
-			labels.add(new Label("Label " + i));
+			labels.add(new Label("Label " + i + " line 1", "Label " + i + " line 2", "Label " + i + " line 3"));
 		}
 	}
 	

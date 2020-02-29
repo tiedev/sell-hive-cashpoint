@@ -27,12 +27,6 @@ public class SettlementTabController {
 	Button singleSettlementBtn;
 	
 	@FXML
-	Button printLabelBtn;
-	
-	@FXML
-	TextField scaleFactorTxt;
-
-	@FXML
 	CheckBox finalAllSettlementChkBox;
 
 	@FXML

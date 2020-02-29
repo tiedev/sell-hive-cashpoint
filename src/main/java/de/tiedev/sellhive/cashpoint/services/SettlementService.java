@@ -9,12 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import de.tiedev.sellhive.cashpoint.architecture.propertyconverter.MoneyStringConverter;
 import de.tiedev.sellhive.cashpoint.model.Game;
+import de.tiedev.sellhive.cashpoint.model.Label;
 import de.tiedev.sellhive.cashpoint.model.Seller;
 import de.tiedev.sellhive.cashpoint.model.SellerSettlement;
 import de.tiedev.sellhive.cashpoint.model.SellerState;
 import javafx.application.Application;
 import javafx.application.HostServices;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert.AlertType;
 
 @Component
 public class SettlementService {
@@ -22,6 +27,12 @@ public class SettlementService {
 	@Autowired
 	PDFPrintService pdfPrintService;
 
+	@Autowired
+	PDFPrintServiceLabelDocument pdfPrintServiceLabelDocument;
+	
+	@Autowired
+	MoneyStringConverter moneyStringConverter;
+	
 	@Autowired
 	GameService gameService;
 
@@ -90,13 +101,22 @@ public class SettlementService {
 		} catch (Exception e) {
 			System.out.println(e.getStackTrace().toString());
 		}
+		try {
+			List<Label> labels = new ArrayList<Label>();
+			for (SellerSettlement settlement : sellerSettlements) {
+				labels.add(new Label("ID: " + String.valueOf(settlement.getSellerExternalId()), settlement.getSellerName(), 
+						"Summe: " + moneyStringConverter.toString(settlement.getSumTotal()) + " €"));
+			}
+			String filename = pdfPrintServiceLabelDocument.printLabelDocument(labels);
+			File file = new File("./" + filename);
+			HostServices hostServices = application.getHostServices();
+	        hostServices.showDocument(file.getAbsolutePath());
+		} catch (Exception e) {
+			System.out.println(e.getStackTrace().toString());
+		}
 		if (finalSettlement) {
 			sellerService.checkOut(sellers);
 		}
 	}
 	
-	public void printLabels() {
-		List<Seller> sellers = sellerService.findBySellerState(SellerState.CHECKEDIN);
-		
-	}
 }

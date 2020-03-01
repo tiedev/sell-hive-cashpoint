@@ -93,20 +93,20 @@ public class GameService {
 		BigDecimal basicFee = BigDecimal.ZERO;
 		if (configurationService.hasFee2() && games.size() > configurationService.getFee2NumberOfGames()) {
 			basicFee = basicFee.add(configurationService.getFee1fee().multiply(BigDecimal.valueOf(configurationService.getFee2NumberOfGames())));
-			feeMessage = feeMessage + createFeeLineItem(configurationService.getFee2NumberOfGames(), configurationService.fee1fee, basicFee) + "\n";			
+			feeMessage = feeMessage + createFeeLineItem(configurationService.getFee2NumberOfGames(), configurationService.feeBase, basicFee) + "\n";			
 			int numberOfGamesWithHigherFee = games.size() > configurationService.getFee2NumberOfGames() ? games.size() - configurationService.getFee2NumberOfGames() : 0;
 			BigDecimal higherFee = configurationService.getFee2fee().multiply(BigDecimal.valueOf(numberOfGamesWithHigherFee));
 			feeMessage = feeMessage + createFeeLineItem(numberOfGamesWithHigherFee, configurationService.fee2fee, higherFee) + "\n";			
 		} else {
 			basicFee = configurationService.getFee1fee().multiply(BigDecimal.valueOf(games.size()));
-			feeMessage = feeMessage + createFeeLineItem(games.size(), configurationService.fee1fee, basicFee);
+			feeMessage = feeMessage + createFeeLineItem(games.size(), configurationService.feeBase, basicFee);
 		}
 		return feeMessage;
 	}
 
 	private String createFeeLineItem(int numberOfGames, BigDecimal fee, BigDecimal feeTotal) {
 		
-		return numberOfGames  + " * " + moneyStringConverter.toString(configurationService.fee1fee) + " = " + moneyStringConverter.toString(feeTotal) + " €";
+		return numberOfGames  + " * " + moneyStringConverter.toString(configurationService.feeBase) + " = " + moneyStringConverter.toString(feeTotal) + " €";
 	}
 
 	public List<Game> gamesSold() {

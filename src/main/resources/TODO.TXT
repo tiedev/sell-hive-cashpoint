@@ -7,17 +7,21 @@ Ausgabe aller Verkäufer mit ihren Spielen inkl. Verkaufsstatus
 Tab Übersicht
 Suche aller Spiele eines Verk�ufers inkl. Verkaufsstatus
 
-Abrechnen
-PDF direkt öffnen
-Kassenstand anzeigen
-Gebühren, Verkaufte Spiele, Gesamtsumme
 
 Anleitung als PDF
 
+Refectoring
+Environment in ConfigurationService durch "@ConfigurationProperties" ersetzen.
+CashPointMain: Statt über die Tab-Namen die Tabs zu initialisieren, besser einen EventHandler registrieren.
 
 Fehler
 _______________________________________________________________
 Erledigt
+
+Abrechnen
+PDF direkt öffnen
+Kassenstand anzeigen
+Gebühren, Verkaufte Spiele, Gesamtsumme
 
 Etikettendruck für die Abrechnung
 Pro Verkäufer ein Etikett mit Nr, Name, Anzahl der Spiele, Geld - das im Umschlag sein müsste

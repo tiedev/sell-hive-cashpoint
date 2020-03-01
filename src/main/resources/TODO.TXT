@@ -1,19 +1,16 @@
 Timo, Jan, Amelie
 ____________________
 RessourceBundle in FXML und SourceCode durchziehen.
-Ausgabe aller Verkäufer mit ihrem Umsatz
-Ausgabe aller Verkäufer mit ihren Spielen inkl. Verkaufsstatus
+Ausgabe aller VerkÃ¤ufer mit ihrem Umsatz
+Ausgabe aller VerkÃ¤ufer mit ihren Spielen inkl. Verkaufsstatus
 
-Tab Übersicht
-Suche aller Spiele eines Verkäufers inkl. Verkaufsstatus
+Tab Ãœbersicht
+Suche aller Spiele eines Verkï¿½ufers inkl. Verkaufsstatus
 
 Abrechnen
-PDF direkt öffnen
+PDF direkt Ã¶ffnen
 Kassenstand anzeigen
-Gebühren, Verkaufte Spiele, Gesamtsumme
-
-Etikettendruck für die Abrechnung
-Pro Verkäufer ein Etikett mit Nr, Name, Anzahl der Spiele, Geld - das im Umschlag sein müsste
+GebÃ¼hren, Verkaufte Spiele, Gesamtsumme
 
 Anleitung als PDF
 
@@ -22,61 +19,65 @@ Fehler
 _______________________________________________________________
 Erledigt
 
+Etikettendruck fÃ¼r die Abrechnung
+Pro VerkÃ¤ufer ein Etikett mit Nr, Name, Anzahl der Spiele, Geld - das im Umschlag sein mÃ¼sste
+
+
 Einstellungen-Tab
 - Pfad zur Dateiablage
 - Import URLs festlegen
 
-Gebühr in zwei Stufen berechnen.
+Gebï¿½hr in zwei Stufen berechnen.
 
-Doppelscan ist noch möglich, muss noch abgefangen werden.
-Bei neuer Nummer suchen, muss der Tab zurückgesetzt werden.
+Doppelscan ist noch mï¿½glich, muss noch abgefangen werden.
+Bei neuer Nummer suchen, muss der Tab zurï¿½ckgesetzt werden.
 
 Verkauf von abgeholten Spiele:
 - Hinweis, dass dieses Spiel eigentlich schon abgeholt worden.
 ENUM GameStatus
-Überschriften beim Kassieren noch
+ï¿½berschriften beim Kassieren noch
 Tab-Reihenfolge: Kassieren, Abrechnen, Spiele annehmen, Daten importieren
 
-Verkäufer abrechnen:
-Bestätigungsdialog
-Kopfzeile: Verkäufer Nr. und Verkäufername
+Verkï¿½ufer abrechnen:
+Bestï¿½tigungsdialog
+Kopfzeile: Verkï¿½ufer Nr. und Verkï¿½ufername
 Liste mit Spielen
 - verkauft
 - Trennzeichen
 - nicht verkauft
-Fußzeile mit Umsatz und Unterschriftsfeld inkl. Datum
+Fuï¿½zeile mit Umsatz und Unterschriftsfeld inkl. Datum
 Letzte Seite mit
-- Verkäufer Nr. und Verkäufername
-- Anzahl der zurückgegebenen Spiele und verkauften Spiele
+- Verkï¿½ufer Nr. und Verkï¿½ufername
+- Anzahl der zurï¿½ckgegebenen Spiele und verkauften Spiele
 - Gesamtsumme
 - Unterschrift und Datum
-Mit erstellen der Liste werden alle Spiele noch verfügbaren Spiele für den Verkauf mit dem Programm gesperrt.
+Mit erstellen der Liste werden alle Spiele noch verfï¿½gbaren Spiele fï¿½r den Verkauf mit dem Programm gesperrt.
 
 
 Alles abrechnen
-Alle noch nicht abgerechneten Verkäufer werden abgerechnet.
+Alle noch nicht abgerechneten Verkï¿½ufer werden abgerechnet.
 Siehe Einzelabrechnungen, aber alles in einem PDF.
 
 Kassieren
-- Auf Spacebar hören zum bezahlen. -> Bestätigungsfenster mit Enter
-- Space als Verkaufen mit Bestätigung per Enter im Dialog inkl. Summe und Hinweis
+- Auf Spacebar hï¿½ren zum bezahlen. -> Bestï¿½tigungsfenster mit Enter
+- Space als Verkaufen mit Bestï¿½tigung per Enter im Dialog inkl. Summe und Hinweis
 
 
 Spiele annehmen.
-- Gebühr darf nicht editierbar sein
+- Gebï¿½hr darf nicht editierbar sein
 - Bezahlt Button erst aktiv, wenn schon ein Seller gefunden ist.
 - Bezahlt Button wieder inaktiv nach Bezahlt
 
 Dokument:
 - Am Ende jeder Abrechnung die Zusammenfassung
 - Auf eine neue Seite das Unterschriftenfeld.
-- Text vor der Unterschrift: "Ich bestätige, dass die angegebene Summe an mich ausgezahlt wurde und meine nicht verkauften Spiele zurückerhalten habe."
-- Durchnummerierung pro Verkäufer, wenn möglich und fortlaufend.
+- Text vor der Unterschrift: "Ich bestï¿½tige, dass die angegebene Summe an mich ausgezahlt wurde und meine nicht verkauften Spiele zurï¿½ckerhalten habe."
+- Durchnummerierung pro Verkï¿½ufer, wenn mï¿½glich und fortlaufend.
 - Per Mail an Andreas schicken
 
 
 Spiele annehmen
-- Bestätigungsdialog
+- Bestï¿½tigungsdialog
 
 
 Kassieren

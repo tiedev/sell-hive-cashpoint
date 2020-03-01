@@ -13,6 +13,8 @@ public class MainTabPaneController {
 	
 	final String CASHPOINTTAB_TITLE = "Kassieren";
 	
+	final String SETTLEMENTTAB_TITLE = "Abrechnen";
+	
 	@FXML
 	private TabPane mainTabPane;
 	
@@ -23,6 +25,9 @@ public class MainTabPaneController {
 	private CashPointTabController cashPointTabController;
 	
 	@Autowired
+	private SettlementTabController settlementTabController;
+	
+	@Autowired
 	private GameCheckinTabController gameCheckinController;
 
 	@FXML
@@ -30,6 +35,9 @@ public class MainTabPaneController {
 		Tab tab = mainTabPane.getSelectionModel().getSelectedItem();
 		if (CASHPOINTTAB_TITLE.equals(tab.getText())) {
 			cashPointTabController.init();
+		} if (SETTLEMENTTAB_TITLE.equals(tab.getText())) {
+			settlementTabController.handleTabButtonBar();
 		}
 	}
+	
 }

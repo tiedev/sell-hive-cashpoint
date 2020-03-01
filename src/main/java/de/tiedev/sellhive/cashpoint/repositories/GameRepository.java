@@ -20,5 +20,7 @@ public interface GameRepository extends CrudRepository<Game, Long> {
 	
 	public List<Game> findBySellerAndSold(Seller seller, Boolean sold);
 
+	public List<Game> findBySold(Boolean sold);
+
 //	public List<Game> findByNameByPublisher(String nameOfGame, String publisher);
 }

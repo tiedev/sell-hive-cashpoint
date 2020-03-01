@@ -10,6 +10,7 @@ import de.tiedev.sellhive.cashpoint.architecture.propertyconverter.MoneyStringCo
 import de.tiedev.sellhive.cashpoint.services.ConfigurationService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 
 @Component
@@ -38,6 +39,9 @@ public class ConfigurationTabController {
 	TextField fee2FeeTxt;
 	
 	@FXML
+	CheckBox sellingConfirmationWithReturnBox;
+	
+	@FXML
 	public void handleSaveBtn(ActionEvent event) {
 		save();
 	}
@@ -53,6 +57,7 @@ public class ConfigurationTabController {
 		fee1FeeTxt.setText(moneyStringConverter.toString(configurationService.getFee1fee()));
 		fee2NumberOfGamesTxt.setText(String.valueOf((configurationService.getFee2NumberOfGames())));
 		fee2FeeTxt.setText(moneyStringConverter.toString(configurationService.getFee2fee()));
+		sellingConfirmationWithReturnBox.setSelected(configurationService.isSellingConfirmationWithReturn());
 	}	
 
 	private void save() {
@@ -80,6 +85,7 @@ public class ConfigurationTabController {
 			configurationService.setFee2fee(BigDecimal.ZERO);
 		}
 		
+		configurationService.setSellingConfirmationWithReturn(sellingConfirmationWithReturnBox.selectedProperty().get());
 	}
 	
 	public void resetTab() {

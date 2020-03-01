@@ -1,5 +1,6 @@
 package de.tiedev.sellhive.cashpoint.controllers;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +11,18 @@ import de.tiedev.sellhive.cashpoint.architecture.propertyconverter.MoneyStringCo
 import de.tiedev.sellhive.cashpoint.model.Game;
 import de.tiedev.sellhive.cashpoint.model.GameState;
 import de.tiedev.sellhive.cashpoint.model.InvoiceLineItem;
-import de.tiedev.sellhive.cashpoint.model.SellerState;
+import de.tiedev.sellhive.cashpoint.services.ConfigurationService;
 import de.tiedev.sellhive.cashpoint.services.GameService;
 import de.tiedev.sellhive.cashpoint.services.InvoiceService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -27,6 +33,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 @Component
 public class CashPointTabController {
@@ -63,6 +71,9 @@ public class CashPointTabController {
 
 	@Autowired
 	MoneyStringConverter moneyStringConverter;
+
+	@Autowired
+	ConfigurationService configurationService;
 
 	public void initialize() {
 		initInvoiceCol();
@@ -137,7 +148,7 @@ public class CashPointTabController {
 
 	@FXML
 	public void handleSellBtn(ActionEvent event) {
-		sellGames();
+		sellGames(event);
 	}
 
 	@FXML
@@ -148,17 +159,52 @@ public class CashPointTabController {
 	@FXML
 	public void handleCashPointTabKeyReleased(KeyEvent ke) {
 		if (ke.getCode().equals(KeyCode.SPACE)) {
-			sellGames();
+			sellGames(ke);
 		}
 	}
 
-	private void sellGames() {
+	private Boolean sellGamesAndShowReturnDialog(Event event) {
+	    Stage stage = new Stage();
+	    Parent root;
+	    Boolean gamesSold = Boolean.FALSE;
+		try {
+			FXMLLoader loader = new FXMLLoader(SellingConfirmationDialogController.class.getResource("/fxml/SellingConfirmationDialog.fxml"));
+			root = (Parent) loader.load();
+			SellingConfirmationDialogController sellingConfirmationDialogController = (SellingConfirmationDialogController) loader.getController();
+			sellingConfirmationDialogController.setStage(stage);
+			sellingConfirmationDialogController.init(Integer.parseInt(numberOfLinesTxt.getText()), moneyStringConverter.fromString(sumTxt.getText()));
+			stage.setScene(new Scene(root));
+			stage.setTitle("My modal window");
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.initOwner(
+					((Node)event.getSource()).getScene().getWindow() );
+			stage.showAndWait();
+			gamesSold = (Boolean) stage.getUserData();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return gamesSold;
+	}
+	
+	private Boolean sellGamesAlertDialog() {
 		Alert alert = new Alert(AlertType.CONFIRMATION, "Gesamtsumme: " + sumTxt.getText() 
 		+ "\n Anzahl Spiele: " + numberOfLinesTxt.getText()
 		+ "\n Verkauf abschließen?", ButtonType.YES, ButtonType.CANCEL);
 		alert.showAndWait();
 
-		if (alert.getResult() == ButtonType.YES && gamesTblView.getItems().size() > 0) {
+		return (alert.getResult() == ButtonType.YES && gamesTblView.getItems().size() > 0);
+		
+	}
+	
+	private void sellGames(Event event) {
+		Boolean gamesSold = Boolean.FALSE;
+		if (configurationService.isSellingConfirmationWithReturn()) {
+			gamesSold = sellGamesAndShowReturnDialog(event);
+		} else  {
+			gamesSold = sellGamesAlertDialog();
+		}
+		if (gamesSold) {
 			invoiceService.saveInvoice(gamesTblView.getItems());
 			resetTab();
 		}

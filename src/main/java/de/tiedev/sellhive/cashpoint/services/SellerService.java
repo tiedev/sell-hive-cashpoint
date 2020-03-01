@@ -49,8 +49,9 @@ public class SellerService {
 	}
 
 	@Transactional
-	public Seller checkedIn(Seller seller) {
+	public Seller checkedIn(Seller seller, BigDecimal feePaid) {
 		seller.setSellerState(SellerState.CHECKEDIN);
+		seller.setFeePaid(feePaid);
 		seller = save(seller);
 		gameService.feePaid(seller.getGames());
 		return seller;

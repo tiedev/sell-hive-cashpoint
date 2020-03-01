@@ -119,7 +119,6 @@ public class GameCheckinTabController {
 
 				BigDecimal totalFee = BigDecimal.ZERO;
 				for (Game game : games) {
-					//totalFee = totalFee.add(game.getFee());
 					gamesTblView.getItems().add(game);
 				}
 				
@@ -153,7 +152,7 @@ public class GameCheckinTabController {
 			alert.showAndWait();
 
 			if (alert.getResult() == ButtonType.YES && gamesTblView.getItems().size() > 0) {
-				sellerService.checkedIn(seller);
+				sellerService.checkedIn(seller, moneyStringConverter.fromString(feeTxt.getText()));
 				resetTab();
 			}
 		} else {

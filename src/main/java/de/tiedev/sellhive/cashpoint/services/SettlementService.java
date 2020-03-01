@@ -1,6 +1,7 @@
 package de.tiedev.sellhive.cashpoint.services;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -117,6 +118,24 @@ public class SettlementService {
 		if (finalSettlement) {
 			sellerService.checkOut(sellers);
 		}
+	}
+
+	public BigDecimal getFeeTotal() {
+		BigDecimal feeTotal = BigDecimal.ZERO;
+		List<Seller> sellers = sellerService.findBySellerState(SellerState.CHECKEDIN);
+		for (Seller seller : sellers) {
+			feeTotal = feeTotal.add(seller.getFeePaid());
+		}
+		return feeTotal;
+	}
+
+	public BigDecimal getIncomeOfSoldGames() {
+		BigDecimal incomeOfGamesSold = BigDecimal.ZERO;
+		List<Game> gamesSold = gameService.gamesSold();
+		for (Game game : gamesSold) {
+			incomeOfGamesSold = incomeOfGamesSold.add(game.getPrice());
+		}
+		return incomeOfGamesSold;
 	}
 	
 }

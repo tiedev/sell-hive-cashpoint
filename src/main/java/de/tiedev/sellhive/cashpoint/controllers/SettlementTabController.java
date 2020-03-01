@@ -1,9 +1,12 @@
 package de.tiedev.sellhive.cashpoint.controllers;
 
+import java.math.BigDecimal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import de.tiedev.sellhive.cashpoint.architecture.propertyconverter.MoneyStringConverter;
 import de.tiedev.sellhive.cashpoint.model.Seller;
 import de.tiedev.sellhive.cashpoint.model.SellerState;
 import de.tiedev.sellhive.cashpoint.services.GameService;
@@ -31,6 +34,21 @@ public class SettlementTabController {
 
 	@FXML
 	CheckBox finalSingleSettlementChkBox;
+	
+	@FXML
+	TextField feeTotalTxt;
+	
+	@FXML
+	TextField incomeOfGamesSoldTxt;
+	
+	@FXML
+	TextField changeTxt;
+	
+	@FXML
+	TextField cashTotalTxt;
+	
+	@FXML
+	Button calculateCashBtn;
 
 	@Autowired
 	SellerService sellerService;
@@ -40,6 +58,9 @@ public class SettlementTabController {
 
 	@Autowired
 	SettlementService settlementService;
+	
+	@Autowired
+	MoneyStringConverter moneyStringConverter;
 
 	@FXML
 	public void handleSingleSettlementBtnOnAction(ActionEvent event) {
@@ -97,9 +118,11 @@ public class SettlementTabController {
 	}
 
 	@FXML
-	public void handlePrintLabelBtnOnAction(ActionEvent event) {
-	
-
+	public void handleCalculateCashBtnOnAction(ActionEvent event) {
+		BigDecimal feeTotal = StringUtils.isEmpty(feeTotalTxt.getText()) ? BigDecimal.ZERO : moneyStringConverter.fromString(feeTotalTxt.getText());
+		BigDecimal incomeOfSoldGames = StringUtils.isEmpty(incomeOfGamesSoldTxt.getText()) ? BigDecimal.ZERO : moneyStringConverter.fromString(incomeOfGamesSoldTxt.getText());
+		BigDecimal change = StringUtils.isEmpty(changeTxt.getText()) ? BigDecimal.ZERO : moneyStringConverter.fromString(changeTxt.getText());
+		cashTotalTxt.setText(moneyStringConverter.toString(feeTotal.add(incomeOfSoldGames).add(change)));
 	}
 
 
@@ -107,5 +130,14 @@ public class SettlementTabController {
 		sellerNumberTxt.clear();
 		finalAllSettlementChkBox.setSelected(false);
 		finalSingleSettlementChkBox.setSelected(false);
+	}
+
+	public void handleTabButtonBar() {
+		BigDecimal feeTotal = settlementService.getFeeTotal();
+		feeTotalTxt.setText(moneyStringConverter.toString(feeTotal));
+		BigDecimal incomeOfSoldGames = settlementService.getIncomeOfSoldGames();
+		incomeOfGamesSoldTxt.setText(moneyStringConverter.toString(incomeOfSoldGames));
+		BigDecimal change = moneyStringConverter.fromString(changeTxt.getText());
+		cashTotalTxt.setText(moneyStringConverter.toString(feeTotal.add(incomeOfSoldGames).add(change)));		
 	}
 }

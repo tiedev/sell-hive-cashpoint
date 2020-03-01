@@ -1,5 +1,6 @@
 package de.tiedev.sellhive.cashpoint.model;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,8 +31,11 @@ public class Seller {
 	
 	SellerState sellerState;
 	
+	BigDecimal feePaid;
+
 	@OneToMany(mappedBy = "seller", cascade = CascadeType.ALL)
 	List<Game> games;
+
 	
 	public Long getId() {
 		return id;
@@ -92,5 +96,14 @@ public class Seller {
                 ", value=" + name +
                 '}';
     }
+
+	public void setFeePaid(BigDecimal feePaid) {
+		this.feePaid = feePaid;
+		
+	}
+
+	public BigDecimal getFeePaid() {
+		return feePaid;
+	}
 	
 }

@@ -108,5 +108,9 @@ public class GameService {
 		
 		return numberOfGames  + " * " + moneyStringConverter.toString(configurationService.fee1fee) + " = " + moneyStringConverter.toString(feeTotal) + " €";
 	}
+
+	public List<Game> gamesSold() {
+		return gameRepository.findBySold(Boolean.TRUE);
+	}
 	
 }

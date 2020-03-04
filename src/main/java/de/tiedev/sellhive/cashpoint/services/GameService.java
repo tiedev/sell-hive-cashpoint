@@ -106,7 +106,7 @@ public class GameService {
 
 	private String createFeeLineItem(int numberOfGames, BigDecimal fee, BigDecimal feeTotal) {
 		
-		return numberOfGames  + " * " + moneyStringConverter.toString(configurationService.feeBase) + " = " + moneyStringConverter.toString(feeTotal) + " €";
+		return numberOfGames  + " * " + moneyStringConverter.toString(fee) + " = " + moneyStringConverter.toString(feeTotal) + " €";
 	}
 
 	public List<Game> gamesSold() {

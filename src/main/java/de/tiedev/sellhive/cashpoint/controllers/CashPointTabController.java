@@ -174,7 +174,7 @@ public class CashPointTabController {
 			sellingConfirmationDialogController.setStage(stage);
 			sellingConfirmationDialogController.init(Integer.parseInt(numberOfLinesTxt.getText()), moneyStringConverter.fromString(sumTxt.getText()));
 			stage.setScene(new Scene(root));
-			stage.setTitle("My modal window");
+			stage.setTitle("Verkauf abschließen");
 			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.initOwner(
 					((Node)event.getSource()).getScene().getWindow() );

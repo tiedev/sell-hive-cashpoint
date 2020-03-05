@@ -42,6 +42,12 @@ public class ConfigurationTabController {
 	CheckBox sellingConfirmationWithReturnBox;
 	
 	@FXML
+	TextField labelPrintInitXTxt;
+	
+	@FXML
+	TextField labelPrintInitYTxt;
+	
+	@FXML
 	public void handleSaveBtn(ActionEvent event) {
 		save();
 	}
@@ -58,6 +64,15 @@ public class ConfigurationTabController {
 		fee2NumberOfGamesTxt.setText(String.valueOf((configurationService.getFee2NumberOfGames())));
 		fee2FeeTxt.setText(moneyStringConverter.toString(configurationService.getFee2fee()));
 		sellingConfirmationWithReturnBox.setSelected(configurationService.isSellingConfirmationWithReturn());
+		labelPrintInitYTxt.setText(String.valueOf(configurationService.getlabelPrintInitX()));
+		if (StringUtils.isEmpty(labelPrintInitXTxt.getText())) {
+			labelPrintInitXTxt.setText("0");
+		}
+		labelPrintInitYTxt.setText(String.valueOf(configurationService.getlabelPrintInitY()));
+		if (StringUtils.isEmpty(labelPrintInitYTxt.getText())) {
+			labelPrintInitYTxt.setText("0");
+		}		
+
 	}	
 
 	private void save() {
@@ -86,6 +101,14 @@ public class ConfigurationTabController {
 		}
 		
 		configurationService.setSellingConfirmationWithReturn(sellingConfirmationWithReturnBox.selectedProperty().get());
+
+		if (!StringUtils.isEmpty(labelPrintInitXTxt.getText())) {
+			configurationService.setlabelPrintInitX(Integer.parseInt(labelPrintInitXTxt.getText()));
+		} 
+		
+		if (!StringUtils.isEmpty(labelPrintInitYTxt.getText())) {
+			configurationService.setlabelPrintInitY(Integer.parseInt(labelPrintInitYTxt.getText()));
+		}
 	}
 	
 	public void resetTab() {

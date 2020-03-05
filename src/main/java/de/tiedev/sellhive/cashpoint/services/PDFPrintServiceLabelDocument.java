@@ -13,6 +13,7 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.PDPageContentStream.AppendMode;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import de.tiedev.sellhive.cashpoint.model.Label;
@@ -29,8 +30,16 @@ public class PDFPrintServiceLabelDocument {
 	float leftLableMargin = 50f * conversionMM2Points;
 	float lineHeight = 15f;
 	
+	@Autowired
+	ConfigurationService configurationService;
+	
 
 	public String printLabelDocument(List<Label> labels) {
+		
+		if (configurationService != null) {
+			labelInitX = (float) configurationService.getlabelPrintInitX() * conversionMM2Points;
+			labelInitY = (float) configurationService.getlabelPrintInitY() * conversionMM2Points;
+		}
 		String filePrefix = "Label";
 		String timeStamp = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(new Date());
 
@@ -50,24 +59,10 @@ public class PDFPrintServiceLabelDocument {
 		}
 		return filename;
 	}
-
-	int labelsPerLine() {
-		int labelsPerLine = 0;
-		float x = labelInitX;
-		while (PDRectangle.A4.getWidth() > (x + labelWidth)) {
-			labelsPerLine++;
-			x = x + labelWidth;
-		}
-		return labelsPerLine;
-	}
-	
-	int linesPerPage() {
-		return 0;
-	}
 	
 	float nextX(float x) {
 		float nextX = x + labelWidth;
-		if ((nextX + labelWidth) <= PDRectangle.A4.getWidth()) {
+		if ((nextX) <= PDRectangle.A4.getWidth()) {
 			return nextX;
 		} else {
 			return labelInitX;
@@ -76,7 +71,6 @@ public class PDFPrintServiceLabelDocument {
 	
 	float nextY(float y) {
 		float nextY = y - labelHeight;
-//		if ((nextY - labelHeight) > 0) {
 		if (nextY > 0) {
 			return nextY;
 		} else {

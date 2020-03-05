@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.gluonhq.charm.glisten.control.ToggleButtonGroup?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -10,12 +12,12 @@
 <AnchorPane fx:id="configurationTab" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.tiedev.sellhive.cashpoint.controllers.ConfigurationTabController">
    <children>
       <TextField fx:id="importURLSellerTxt" layoutX="162.0" layoutY="59.0" prefHeight="25.0" prefWidth="1051.0" promptText="URL" />
-      <Button fx:id="saveBtn" layoutX="198.0" layoutY="344.0" mnemonicParsing="false" onAction="#handleSaveBtn" text="Speichern">
+      <Button fx:id="saveBtn" layoutX="207.0" layoutY="467.0" mnemonicParsing="false" onAction="#handleSaveBtn" text="Speichern">
          <font>
             <Font size="14.0" />
          </font></Button>
       <Label layoutX="74.0" layoutY="63.0" text="Händlerimport" />
-      <Button fx:id="resetBtn" layoutX="74.0" layoutY="344.0" mnemonicParsing="false" onAction="#handleResetBtn" text="Zurücksetzen">
+      <Button fx:id="resetBtn" layoutX="67.0" layoutY="467.0" mnemonicParsing="false" onAction="#handleResetBtn" text="Zurücksetzen">
          <font>
             <Font size="14.0" />
          </font>
@@ -30,6 +32,14 @@
       <Label layoutX="152.0" layoutY="228.0" text="Spiele" />
       <TextField fx:id="fee2FeeTxt" layoutX="199.0" layoutY="224.0" prefHeight="25.0" prefWidth="78.0" promptText="Gebühr in €" />
       <Label layoutX="295.0" layoutY="228.0" text="Gebühr" />
-      <CheckBox fx:id="sellingConfirmationWithReturnBox" layoutX="89.0" layoutY="284.0" mnemonicParsing="false" text="Rückgeld bei Verkäufen berechnen" />
+      <CheckBox fx:id="sellingConfirmationWithReturnBox" layoutX="91.0" layoutY="315.0" mnemonicParsing="false" text="Rückgeld bei Verkäufen berechnen" />
+      <Label layoutX="85.0" layoutY="372.0" text="Labeldruck linker Rand" />
+      <Label layoutX="39.0" layoutY="417.0" text="Labeldruck Höhe der ersten Zeile" />
+      <TextField fx:id="labelPrintInitXTxt" layoutX="231.0" layoutY="368.0" />
+      <TextField fx:id="labelPrintInitYTxt" layoutX="231.0" layoutY="413.0" />
+      <ToggleButtonGroup layoutX="442.0" layoutY="275.0" selectionType="SINGLE" />
+      <Separator layoutX="42.0" layoutY="164.0" prefHeight="0.0" prefWidth="1180.0" />
+      <Separator layoutX="50.0" layoutY="289.0" prefHeight="0.0" prefWidth="1180.0" />
+      <Separator layoutX="50.0" layoutY="356.0" prefHeight="0.0" prefWidth="1180.0" />
    </children>
 </AnchorPane>

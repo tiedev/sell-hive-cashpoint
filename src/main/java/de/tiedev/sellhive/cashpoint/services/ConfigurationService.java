@@ -22,6 +22,9 @@ BigDecimal fee2fee = new BigDecimal(0.8);
 
 Boolean sellingConfirmationWithReturn;
 
+int labelPrintInitX = 0;
+int labelPrintInitY = 2800;
+
 @Autowired
 Environment environment;
 
@@ -74,6 +77,20 @@ public Boolean isSellingConfirmationWithReturn() {
 public void setSellingConfirmationWithReturn(Boolean sellingConfirmationWithReturn) {
 	this.sellingConfirmationWithReturn = sellingConfirmationWithReturn;
 	
+}
+public int getlabelPrintInitX() {
+	return labelPrintInitX;
+}
+
+public int getlabelPrintInitY() {
+	return labelPrintInitY;
+}
+public void setlabelPrintInitX(int labelPrintInitX) {
+	this.labelPrintInitX = labelPrintInitX;	
+}
+
+public void setlabelPrintInitY(int labelPrintInitY) {
+	this.labelPrintInitY = labelPrintInitY;	
 }
 
 }

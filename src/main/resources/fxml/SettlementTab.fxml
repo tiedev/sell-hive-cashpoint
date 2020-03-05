@@ -16,7 +16,7 @@
       <Button fx:id="allsettlementbtn" layoutX="195.0" layoutY="314.0" mnemonicParsing="false" onAction="#handleAllSettlementBtnOnAction" text="%settlementtab.btn.allsettlement" />
       <CheckBox fx:id="finalSingleSettlementChkBox" layoutX="223.0" layoutY="60.0" mnemonicParsing="false" text="final abrechnen" />
       <CheckBox fx:id="finalAllSettlementChkBox" layoutX="46.0" layoutY="318.0" mnemonicParsing="false" text="final abrechnen" />
-      <Label layoutX="287.0" layoutY="318.0" prefHeight="17.0" prefWidth="198.0" text="PDF für Labeldruck wird mit erzeugt" />
+      <Label layoutX="352.0" layoutY="318.0" prefHeight="17.0" prefWidth="310.0" text="PDF für Labeldruck wird mit erzeugt" />
       <Label layoutX="43.0" layoutY="410.0" text="Kasse" />
       <Label layoutX="94.0" layoutY="434.0" text="Gebühren" />
       <Label layoutX="63.0" layoutY="461.0" text="Verkaufte Spiele" />

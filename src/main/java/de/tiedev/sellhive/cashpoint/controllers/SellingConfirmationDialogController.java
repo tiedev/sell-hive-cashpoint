@@ -50,28 +50,7 @@ public class SellingConfirmationDialogController {
 		
 	public void handleSellingConfirmationDialogPaneKeyReleased(KeyEvent event) {
 		if (event.getCode().equals(KeyCode.ENTER)) {
-			if (!StringUtils.isEmpty(cashTxt.getText())) {
-				BigDecimal cash = moneyStringConverter.fromString(cashTxt.getText());
-				BigDecimal priceTotal = moneyStringConverter.fromString(priceTotalTxt.getText());
-				if (cash.compareTo(priceTotal) < 0) {
-					Alert alert = new Alert(AlertType.ERROR, "Gegeben ist kleiner als Gesamtpreis!", ButtonType.OK);
-					alert.showAndWait();
-					returnLbl.setText("");
-				} else {
-					BigDecimal returnMoney = cash.subtract(priceTotal);
-				
-					//return not set or new return value
-					if (StringUtils.isEmpty(returnLbl.getText()) || !returnMoney.equals(moneyStringConverter.fromString(returnLbl.getText()))) {
-						returnLbl.setText(moneyStringConverter.toString(returnMoney));
-					} else {
-						stage.setUserData(Boolean.TRUE);
-						stage.hide();
-					}
-				}
-			} else {
-				stage.setUserData(Boolean.TRUE);
-				stage.hide();
-			}
+			checkOKOrEnter();
 		} else if (event.getCode().equals(KeyCode.ESCAPE)) {
 			stage.setUserData(Boolean.FALSE);
 			stage.hide();			
@@ -85,8 +64,32 @@ public class SellingConfirmationDialogController {
 	}
 	
 	public void handleOkBtnOnAction(ActionEvent event) {
-		stage.setUserData(Boolean.TRUE);
-		stage.hide();		
+		checkOKOrEnter();
+	}
+	
+	private void checkOKOrEnter() {
+		if (!StringUtils.isEmpty(cashTxt.getText())) {
+			BigDecimal cash = moneyStringConverter.fromString(cashTxt.getText());
+			BigDecimal priceTotal = moneyStringConverter.fromString(priceTotalTxt.getText());
+			if (cash.compareTo(priceTotal) < 0) {
+				Alert alert = new Alert(AlertType.ERROR, "Gegeben ist kleiner als Gesamtpreis!", ButtonType.OK);
+				alert.showAndWait();
+				returnLbl.setText("");
+			} else {
+				BigDecimal returnMoney = cash.subtract(priceTotal);
+			
+				//return not set or new return value
+				if (StringUtils.isEmpty(returnLbl.getText()) || !returnMoney.equals(moneyStringConverter.fromString(returnLbl.getText()))) {
+					returnLbl.setText(moneyStringConverter.toString(returnMoney));
+				} else {
+					stage.setUserData(Boolean.TRUE);
+					stage.hide();
+				}
+			}
+		} else {
+			stage.setUserData(Boolean.TRUE);
+			stage.hide();
+		}		
 	}
 	
 	public void handleCancelBtnOnAction(ActionEvent event) {

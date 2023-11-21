@@ -9,22 +9,24 @@
 	<version>1.0-SNAPSHOT</version>
 	<properties>
 		<exec.mainClass>de.tiedev.sellhive.cashpoint.Main</exec.mainClass>
-		<javafx.version>2.2</javafx.version>
-		<spring.boot.version>2.1.1.RELEASE</spring.boot.version>
-		<spring.version>5.1.3.RELEASE</spring.version>
+		<maven.compiler.release>17</maven.compiler.release>
+		<javafx.version>21.0.1</javafx.version>
+		<spring.boot.version>3.1.2</spring.boot.version>
+		<spring.version>6.0.11</spring.version>
 		<spring.data.releasetrain>Lovelace-RELEASE</spring.data.releasetrain>
-		<hsqldb.version>2.3.2</hsqldb.version>
-		<dbh2.version>1.4.197</dbh2.version>
-		<dbcp.version>2.1</dbcp.version>
-		<jcl.slf4j.version>1.7.12</jcl.slf4j.version>
-		<junit.version>4.12</junit.version>
-		<javax.annotation.version>1.0.0</javax.annotation.version>
-		<hibernate.version>5.0.4.Final</hibernate.version>
-		<spring.data.jpa.version>2.1.3.RELEASE</spring.data.jpa.version>
-		<jackson-databind.version>2.9.10.1</jackson-databind.version>
-		<pdfbox.version>2.0.13</pdfbox.version>
-		<openjfx.version>11.0.2</openjfx.version>
-
+		<hsqldb.version>2.7.2</hsqldb.version>
+		<dbh2.version>2.2.224</dbh2.version>
+		<dbcp.version>2.10.0</dbcp.version>
+		<!-- jcl.slf4j.version>1.7.12</jcl.slf4j.version -->
+		<!-- junit.version>4.12</junit.version -->
+		<javax.annotation.version>1.0.1</javax.annotation.version>
+		<hibernate.version>6.2.13.Final</hibernate.version>
+		<hibernate.entitymanager.version>5.6.15.Final</hibernate.entitymanager.version>
+		<!-- spring.data.jpa.version>2.1.3.RELEASE</spring.data.jpa.version -->
+		<jackson-databind.version>2.15.3</jackson-databind.version>
+		<pdfbox.version>3.0.0</pdfbox.version>
+		<openjfx.version>21.0.1</openjfx.version>
+		<spring-boot-maven-plugin>3.1.2</spring-boot-maven-plugin>
 	</properties>
 
 	<repositories>
@@ -32,14 +34,18 @@
 			<id>spring-plugins-repository</id>
 			<url>http://repo.spring.io/plugins-release/</url>
 		</repository>
+		<repository>
+			<id>mvn-repository</id>
+			<url>https://mvnrepository.com/</url>
+		</repository>
 	</repositories>
 
 	<dependencies>
-		<dependency>
+		<!--dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
-		</dependency>
+		</dependency-->
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-base</artifactId>
@@ -101,7 +107,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-			<version>${hibernate.version}</version>
+			<version>${hibernate.entitymanager.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -130,12 +136,12 @@
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/javax.annotation/com.springsource.javax.annotation -->
-		<dependency>
+		<!--dependency>
 			<groupId>javax.annotation</groupId>
 			<artifactId>com.springsource.javax.annotation</artifactId>
 			<version>${javax.annotation.version}</version>
 			<scope>provided</scope>
-		</dependency>
+		</dependency -->
 
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -147,7 +153,11 @@
 			<artifactId>pdfbox</artifactId>
 			<version>${pdfbox.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-maven-plugin</artifactId>
+			<version>${spring.boot.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -156,6 +166,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${spring.boot.version}</version>
 				<executions>
 					<execution>
 						<goals>
@@ -171,7 +182,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.0</version>
+				<version>3.11.0</version>
 				<configuration>
 					<release>11</release>
 				</configuration>

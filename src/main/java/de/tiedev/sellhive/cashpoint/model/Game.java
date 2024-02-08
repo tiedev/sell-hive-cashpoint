@@ -201,7 +201,17 @@ public class Game {
 	}
 	
 	public BigDecimal getFee() {
-		return fee != null ? fee : new BigDecimal(0.5);
+		fee = new BigDecimal("0.5");
+		if (getPrice().compareTo(new BigDecimal(20)) > 0 ) {
+			fee = new BigDecimal(1);
+		}
+		if (getPrice().compareTo(new BigDecimal(50)) > 0 ) {
+			fee = new BigDecimal(2);
+		}
+		if (getPrice().compareTo(new BigDecimal(80)) > 0 ) {
+			fee = new BigDecimal(5);
+		}
+		return fee;
 	}
 	
 	public void setGameState(GameState gameState) {

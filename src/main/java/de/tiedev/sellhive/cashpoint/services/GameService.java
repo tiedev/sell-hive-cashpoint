@@ -72,15 +72,7 @@ public class GameService {
 	}
 
 	public BigDecimal calculateFee(List<Game> games) {
-		BigDecimal feeTotal = BigDecimal.ZERO;
-		if (configurationService.hasFee2() && games.size() > configurationService.getFee2NumberOfGames()) {
-			feeTotal = feeTotal.add(configurationService.getFee1fee().multiply(BigDecimal.valueOf(configurationService.getFee2NumberOfGames())));
-			int numberOfGamesWithHigherFee = games.size() > configurationService.getFee2NumberOfGames() ? games.size() - configurationService.getFee2NumberOfGames() : 0;
-			feeTotal = feeTotal.add(configurationService.getFee2fee().multiply(BigDecimal.valueOf(numberOfGamesWithHigherFee)));
-		} else {
-			feeTotal = configurationService.getFee1fee().multiply(BigDecimal.valueOf(games.size()));
-		}
-		return feeTotal;
+    	return games.stream().map(Game::getFee).reduce(BigDecimal.ZERO, BigDecimal::add);
 	}
 	//TODO: Wird später vom SearchTabController genutzt
 	public List<Game> getGamesByNameByPublisher(String nameOfGame, String publisher) {
@@ -89,18 +81,11 @@ public class GameService {
 	}
 
 	public String getFeeMessage(List<Game> games) {
-		String feeMessage = new String("Gebührenberechnung \n");
-		BigDecimal basicFee = BigDecimal.ZERO;
-		if (configurationService.hasFee2() && games.size() > configurationService.getFee2NumberOfGames()) {
-			basicFee = basicFee.add(configurationService.getFee1fee().multiply(BigDecimal.valueOf(configurationService.getFee2NumberOfGames())));
-			feeMessage = feeMessage + createFeeLineItem(configurationService.getFee2NumberOfGames(), configurationService.feeBase, basicFee) + "\n";			
-			int numberOfGamesWithHigherFee = games.size() > configurationService.getFee2NumberOfGames() ? games.size() - configurationService.getFee2NumberOfGames() : 0;
-			BigDecimal higherFee = configurationService.getFee2fee().multiply(BigDecimal.valueOf(numberOfGamesWithHigherFee));
-			feeMessage = feeMessage + createFeeLineItem(numberOfGamesWithHigherFee, configurationService.fee2fee, higherFee) + "\n";			
-		} else {
-			basicFee = configurationService.getFee1fee().multiply(BigDecimal.valueOf(games.size()));
-			feeMessage = feeMessage + createFeeLineItem(games.size(), configurationService.feeBase, basicFee);
-		}
+		String feeMessage = new String("Gebührenberechnung \n"
+			+ "0,50 € Gebühr: 0,50 - 20,00 €  \n"
+			+ "1,00 € Gebühr: 20,01 - 50,00 €  \n"
+			+ "2,00 € Gebühr: 50,01 - 80,00 €  \n"
+			+ "5,00 € Gebühr: 80,01 - 100.00 €");
 		return feeMessage;
 	}
 

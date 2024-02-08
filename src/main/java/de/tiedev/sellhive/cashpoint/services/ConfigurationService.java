@@ -11,8 +11,8 @@ import de.tiedev.sellhive.cashpoint.Constants;
 
 @Service
 public class ConfigurationService {
-String importURLSeller = "https://sellhive.tealtoken.de/backend/cashpoint/export/sellers/PaewvtScieMpKDmeHvG82g3OX1U4YN1L";
-String importURLGames = "https://sellhive.tealtoken.de/backend/cashpoint/export/items/PaewvtScieMpKDmeHvG82g3OX1U4YN1L";
+String importURLSeller = "https://sellhive.tealtoken.de/backend/cashpoint/export/sellers/thD8lPGfvnkyFaRHKXmsAQ4YLTM6ZcjE";
+String importURLGames = "https://sellhive.tealtoken.de/backend/cashpoint/export/items/thD8lPGfvnkyFaRHKXmsAQ4YLTM6ZcjE";
 
 BigDecimal feeBase = new BigDecimal(0.5);
 

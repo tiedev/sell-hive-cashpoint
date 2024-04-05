@@ -2,6 +2,7 @@ package de.tiedev.sellhive.cashpoint.services;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -38,8 +39,9 @@ public class PDFPrintService {
 				+ timeStamp + ".pdf";
 		try (PDDocument doc = new PDDocument()) {
 
-			File ttfFile = new File("src/main/resources/ttf/LiberationSans-Regular.ttf");
-			PDType0Font font = PDType0Font.load(doc, ttfFile);
+			InputStream ttfStream = getClass().getResourceAsStream("/ttf/LiberationSans-Regular.ttf");
+//			File ttfFile = new File("ttf/LiberationSans-Regular.ttf");
+			PDType0Font font = PDType0Font.load(doc, ttfStream);
 
 			doc.getDocumentInformation().setTitle("Einzelabrechnung für " + sellerSettlement.getSellerName());
 			printSingleSettlement(doc, font, sellerSettlement);

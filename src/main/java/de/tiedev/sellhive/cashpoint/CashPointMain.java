@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class CashPointMain {
 
-	private static final Logger log = LoggerFactory.getLogger(CashPointMain.class);
+//	private static final Logger log = LoggerFactory.getLogger(CashPointMain.class);
 
 	public static void main(String[] args) {
 		Application.launch(CashPointFxApplication.class, args);

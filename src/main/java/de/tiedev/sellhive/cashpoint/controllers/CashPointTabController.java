@@ -3,6 +3,7 @@ package de.tiedev.sellhive.cashpoint.controllers;
 import java.io.IOException;
 import java.math.BigDecimal;
 
+import de.tiedev.sellhive.cashpoint.services.SellerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -75,6 +76,10 @@ public class CashPointTabController {
 	@Autowired
 	ConfigurationService configurationService;
 
+	@Autowired
+	SellerService sellerService;
+
+
 	public void initialize() {
 		initInvoiceCol();
 	}
@@ -94,7 +99,23 @@ public class CashPointTabController {
 	private void addLineItem() {
 		if (!StringUtils.isEmpty(newItemTxt.getText())) {
 			String barcode = newItemTxt.getText();
-			Game game = gameService.findByBarcode(barcode);
+			Game game = null;
+			/** if multiple sold article, a new game is created for each sale */
+			if (StringUtils.startsWithIgnoreCase(barcode, configurationService.getBarcodePrefixForMultipleSoldArticles())) {
+				String[] splitBarcode = StringUtils.tokenizeToStringArray(barcode, "_");
+				if (splitBarcode.length == 3) {
+					BigDecimal price = new BigDecimal(splitBarcode[2]);
+					//Price format of barcode is in Cent without a separator, so the price is divided by 100 to get the price in Euro
+					price = price.divide(BigDecimal.TEN);
+					price = price.divide(BigDecimal.TEN);
+					game = new Game(splitBarcode[1], barcode + "_" + System.currentTimeMillis(), price, sellerService.findByExternalId(configurationService.getVhsSellerID()));
+					game.setFee(BigDecimal.ZERO);
+					game.setGameState(GameState.FEE_PAID);
+
+				}
+			} else {
+				game = gameService.findByBarcode(barcode);
+			}
 			String errorMsg = "";
 			if (game == null) {
 				errorMsg = "Der Barcode " + newItemTxt.getText()

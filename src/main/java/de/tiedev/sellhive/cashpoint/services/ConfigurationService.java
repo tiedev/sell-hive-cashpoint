@@ -40,7 +40,6 @@ public String getImportURLGames() {
 public void setImportURLGames(String importURLGames) {
 	this.importURLGames = importURLGames;
 }
-
 public BigDecimal getFee1fee() {
 	return feeBase;
 }
@@ -78,6 +77,7 @@ public void setSellingConfirmationWithReturn(Boolean sellingConfirmationWithRetu
 	this.sellingConfirmationWithReturn = sellingConfirmationWithReturn;
 	
 }
+
 public int getlabelPrintInitX() {
 	return labelPrintInitX;
 }
@@ -93,4 +93,11 @@ public void setlabelPrintInitY(int labelPrintInitY) {
 	this.labelPrintInitY = labelPrintInitY;	
 }
 
+public String getBarcodePrefixForMultipleSoldArticles() {
+	return environment.getProperty(Constants.AP_BARCODE_PREFIX_FOR_MULTIPLE_SOLD_ARTICLES, String.class);
+}
+
+public long getVhsSellerID() {
+	return environment.getProperty(Constants.AP_VHS_SELLERID, long.class);
+}
 }

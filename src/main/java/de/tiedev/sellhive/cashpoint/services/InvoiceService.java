@@ -1,5 +1,6 @@
 package de.tiedev.sellhive.cashpoint.services;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -50,33 +51,23 @@ public class InvoiceService {
 		}
 	}
 
-	@Transactional
-	public Invoice saveInvoice(Invoice invoice) {
-		Invoice returnInvoice = invoiceRepository.save(invoice);
-		invoiceLineItemRepository.saveAll(invoice.getLineItems());
-		List<Game> games = new ArrayList<Game>();
-		Game game;
-		for (InvoiceLineItem invoiceLineItem : invoice.getLineItems()) {
-			game = invoiceLineItem.getGame();
-			game.setSold(Boolean.TRUE);
-			game.setGameState(GameState.SOLD);
-			games.add(game);
-		}
-		gameService.save(games);
-		return returnInvoice;
-	}
 
+	@Transactional
 	public void saveInvoice(List<Game> games) {
 		Invoice invoice = new Invoice();
 		if (games != null) {
 			InvoiceLineItem invoiceLineItem;
 			for (Game game : games) {
+				game.setSold(Boolean.TRUE);
+				game.setGameState(GameState.SOLD);
 				invoiceLineItem = new InvoiceLineItem(game);
 				invoice.addLineItem(invoiceLineItem);
 				receiptPrintService.print(game.getBarcode() + "\n");
 			}
 		}
-		saveInvoice(invoice);
+		gameService.save(games);
+		Invoice returnInvoice = invoiceRepository.save(invoice);
+		invoiceLineItemRepository.saveAll(invoice.getLineItems());
 		receiptPrintService.print(LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) + "\n\n");
 	}
 

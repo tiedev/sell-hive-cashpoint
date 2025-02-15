@@ -1,3 +1,7 @@
+Verkauft-Status an sell-hive senden.
+Formatierung von barcode-Preisen noch nicht korrekt.
+Fee bei Barcodes sollte 0 sein.
+
 Timo, Jan, Amelie
 ____________________
 RessourceBundle in FXML und SourceCode durchziehen.

@@ -2,6 +2,9 @@ package de.tiedev.sellhive.cashpoint.services;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,8 +36,8 @@ public class GameService {
 		return gameRepository.findByBarcode(barcode);
 	}
 	
-	public void save(List<Game> games) {
-		gameRepository.saveAll(games);		
+	public List<Game> save(List<Game> games) {
+		return (List<Game>) gameRepository.saveAll(games);
 	}
 	
 	public void save(Game game) {
@@ -97,5 +100,20 @@ public class GameService {
 	public List<Game> gamesSold() {
 		return gameRepository.findBySold(Boolean.TRUE);
 	}
-	
+
+	public void updateSalesStatus(List<Game> games) {
+		Map<String, Game> gamesWithNewSalesStatus = games.stream().collect(Collectors.toMap(Game::getBarcode, Function.identity()));
+		List<Game> gamesToUpdate = (List<Game>) gameRepository.findAll();
+		Game gameWithNewSalesStatus;
+		for(Game gameToUpdate : gamesToUpdate) {
+			gameWithNewSalesStatus = gamesWithNewSalesStatus.get(gameToUpdate.getBarcode());
+			if (!gameToUpdate.isSold() && gameWithNewSalesStatus != null) {
+				if (gameWithNewSalesStatus.isSold()) {
+					gameToUpdate.setSold(gameWithNewSalesStatus.isSold());
+					gameToUpdate.setGameState(GameState.SOLD);
+				}
+			}
+		}
+		gameRepository.saveAll(gamesToUpdate);
+	}
 }

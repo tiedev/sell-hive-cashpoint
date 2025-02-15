@@ -1,4 +1,5 @@
 Verkauft-Status an sell-hive senden.
+- Idee: Wenn Datenbank nicht empty ist, werden alle Daten neu geholt. Falls schon Daten vorhanden sind, wird ein Update durchgeführt.
 Formatierung von barcode-Preisen noch nicht korrekt.
 Fee bei Barcodes sollte 0 sein.
 

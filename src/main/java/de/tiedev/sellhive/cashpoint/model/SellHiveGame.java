@@ -29,7 +29,8 @@ import java.math.BigDecimal;
 "seller",
 "name",
 "publisher",
-"boxed_as_new"
+"boxed_as_new",
+"sold"
 })
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SellHiveGame {
@@ -64,7 +65,8 @@ public class SellHiveGame {
 	Boolean labeled;
 	
 	Boolean transferred;
-	
+
+	@JsonProperty("sold")
 	Boolean sold;
 	
 	@JsonProperty("price")
@@ -140,10 +142,12 @@ public class SellHiveGame {
 		this.transferred = transferred;
 	}
 
+	@JsonProperty("sold")
 	public Boolean isSold() {
 		return sold;
 	}
 
+	@JsonProperty("sold")
 	public void setSold(Boolean sold) {
 		this.sold = sold;
 	}

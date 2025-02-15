@@ -7,10 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.tiedev.sellhive.cashpoint.model.Game;
 import de.tiedev.sellhive.cashpoint.model.Seller;
 import de.tiedev.sellhive.cashpoint.model.SellerState;
-import de.tiedev.sellhive.cashpoint.repositories.GameRepository;
 import de.tiedev.sellhive.cashpoint.repositories.SellerRepository;
 
 @Service
@@ -30,8 +28,9 @@ public class SellerService {
 	public Seller save(Seller seller) {
 		return sellerRepository.save(seller);
 	}
+
 	public List<Seller> save(List<Seller> sellers) {
-		return (List<Seller>) sellerRepository.saveAll(sellers);		
+		return (List<Seller>) sellerRepository.saveAll(sellers);
 	}
 
 	public Seller findByExternalId(Long externalId) {

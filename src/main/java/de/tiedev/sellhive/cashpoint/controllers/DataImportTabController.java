@@ -6,8 +6,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import de.tiedev.sellhive.cashpoint.model.Game;
-import de.tiedev.sellhive.cashpoint.model.Seller;
 import de.tiedev.sellhive.cashpoint.services.DataImportService;
 import de.tiedev.sellhive.cashpoint.services.TestDataService;
 import javafx.event.ActionEvent;
@@ -20,7 +18,7 @@ import javafx.scene.control.TextArea;
 @Component
 public class DataImportTabController {
 
-	
+
 	@Autowired
 	DataImportService dataImportService;
 	
@@ -37,19 +35,16 @@ public class DataImportTabController {
 	
 	@FXML
 	public void dataImportBtnOnAction(ActionEvent event) {
-		Alert alert = new Alert(AlertType.CONFIRMATION, "Beim Importieren werden alle Daten in der Anwendung gelöscht. Sollen neue Daten importiert werden?", ButtonType.YES, ButtonType.CANCEL);
+		Alert alert = new Alert(AlertType.CONFIRMATION, "Falls bereits Daten importiert wurden, wird nur der Verkaufsstatus aktualisiert.", ButtonType.YES, ButtonType.CANCEL);
 		alert.showAndWait();
 
 		if (alert.getResult() == ButtonType.YES) {
-			dataImportService.cleanUpDatabase();
-			Map<Long, Seller> sellers = dataImportService.importSeller();
-			dataImportTxtArea.appendText(sellers.size() + " Verkäufer importiert \n");
-			List<Game> games = dataImportService.importGames(sellers);
-			dataImportTxtArea.appendText(games.size() + " Spiele importiert \n");
+			String resultMessage = dataImportService.importSellersAndGames();
+			dataImportTxtArea.appendText(resultMessage);
 			System.out.println("importDataOnAction");
 		}
 	}
-	
+
 
     @FXML
     public void handleCreateTestDataBtnAction(ActionEvent event) {

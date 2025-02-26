@@ -76,6 +76,7 @@ public class DataImportService {
 				new ParameterizedTypeReference<List<SellHiveGame>>(){});
 		Map<Long, Seller> sellers = sellerService.getAll().stream().collect(Collectors.toMap(Seller::getExternalId, Function.identity()));
 		List<Game> games = convertSellHiveGameToGame(gamesToImport, sellers);
+		//if no games exist in the database, save all games
 		if (gameService.countAll() == 0l) {
 			return gameService.save(games);
 		} else {

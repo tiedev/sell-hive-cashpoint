@@ -14,6 +14,7 @@ import de.tiedev.sellhive.cashpoint.model.Game;
 import de.tiedev.sellhive.cashpoint.model.GameState;
 import de.tiedev.sellhive.cashpoint.model.Seller;
 import de.tiedev.sellhive.cashpoint.repositories.GameRepository;
+import org.springframework.util.StringUtils;
 
 @Service
 public class GameService {
@@ -75,7 +76,11 @@ public class GameService {
 	}
 
 	public BigDecimal calculateFee(List<Game> games) {
-    	return games.stream().map(Game::getFee).reduce(BigDecimal.ZERO, BigDecimal::add);
+    	return games.stream().
+				//Multiple sold articles are not part of the sell-hive database, so they are filtered out.
+				// Normally they should not be in the database, when the fees are calculated.
+				filter(game -> !StringUtils.startsWithIgnoreCase(game.getBarcode(), configurationService.getBarcodePrefixForMultipleSoldArticles())).
+				map(Game::getFee).reduce(BigDecimal.ZERO, BigDecimal::add);
 	}
 	//TODO: Wird später vom SearchTabController genutzt
 	public List<Game> getGamesByNameByPublisher(String nameOfGame, String publisher) {

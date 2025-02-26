@@ -1,7 +1,11 @@
 Verkauft-Status an sell-hive senden.
+    Formatierung von barcode-Preisen noch nicht korrekt. (Keine Ahnung)
+    Fee bei Barcodes sollte 0 sein.
+      Idee: Es werden nur Fees von Spielen berücksichtig, die aus dem Flohmarkt stammen.
+Done:
 - Idee: Wenn Datenbank nicht empty ist, werden alle Daten neu geholt. Falls schon Daten vorhanden sind, wird ein Update durchgeführt.
-Formatierung von barcode-Preisen noch nicht korrekt.
-Fee bei Barcodes sollte 0 sein.
+- Exception beim Import, weil ein Spiel keinen Seller hat. Falls der Seller noch nicht existiert. Noch werden neue Seller angelegt!
+- Beim senden vom Sold-Status gibt es Probleme, weil Null in einer ID steht, bzw. ans Ende vom Array geschrieben wird.
 
 Timo, Jan, Amelie
 ____________________

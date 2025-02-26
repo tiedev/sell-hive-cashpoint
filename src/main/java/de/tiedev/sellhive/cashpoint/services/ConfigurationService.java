@@ -13,6 +13,7 @@ import de.tiedev.sellhive.cashpoint.Constants;
 public class ConfigurationService {
 String importURLSeller = "https://sellhive.tealtoken.de/backend/cashpoint/export/sellers/thD8lPGfvnkyFaRHKXmsAQ4YLTM6ZcjE";
 String importURLGames = "https://sellhive.tealtoken.de/backend/cashpoint/export/items/thD8lPGfvnkyFaRHKXmsAQ4YLTM6ZcjE";
+String exportURLSoldStatus = "https://sellhive.tealtoken.de/backend/cashpoint/confirm/sold/thD8lPGfvnkyFaRHKXmsAQ4YLTM6ZcjE";
 
 BigDecimal feeBase = new BigDecimal(0.5);
 
@@ -99,5 +100,8 @@ public String getBarcodePrefixForMultipleSoldArticles() {
 
 public long getVhsSellerID() {
 	return environment.getProperty(Constants.AP_VHS_SELLERID, long.class);
+}
+public String getExportURLSoldStatus() {
+	return exportURLSoldStatus;
 }
 }

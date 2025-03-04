@@ -40,7 +40,7 @@ public class DataImportService {
 	public String importSellersAndGames() {
 		String resultMessage = "";
 		resultMessage = importSellers().size() + " Verkäufer neu importiert.\n";
-		resultMessage += importOrUpdateGames().size()  + " Spiele importiert. \n";
+		resultMessage += importGames().size()  + " Spiele importiert bzw. updated. \n";
 		resultMessage += "Falls bereits Verkäufer und Spiele vorhanden waren, wurde nur der Verkaufsstatus aktualisiert \n";
 		return resultMessage;
 	}
@@ -71,21 +71,37 @@ public class DataImportService {
 		return sellers;
 	}
 
-	public List<Game> importOrUpdateGames() {
+	public List<Game> importGames() {
 		List<SellHiveGame> gamesToImport = getApi(configurationService.getImportURLGames(), HttpMethod.GET,
 				new ParameterizedTypeReference<List<SellHiveGame>>(){});
 		Map<Long, Seller> sellers = sellerService.getAll().stream().collect(Collectors.toMap(Seller::getExternalId, Function.identity()));
 		List<Game> games = convertSellHiveGameToGame(gamesToImport, sellers);
 		//if no games exist in the database, save all games
-		if (gameService.countAll() == 0l) {
+		if (gameService.countAll() == 0l){
 			return gameService.save(games);
 		} else {
-			gameService.updateSalesStatus(games);
-
-			return new ArrayList<Game>();
+			return updateGames();
 		}
 	}
-	
+
+	public List<Game> updateGames() {
+		List<SellHiveGame> gamesToImport = getApi(configurationService.getImportURLGames(), HttpMethod.GET,
+				new ParameterizedTypeReference<List<SellHiveGame>>(){});
+		List<Game> games = gamesToImport.stream().
+								map(o -> {
+									Game game = new Game();
+									game.setExternalId(o.getId());
+									game.setSold(o.isSold());
+									game.setTransferred(o.getTransferred());
+									game.setBarcode(o.getBarcode());
+									game.setExternalId(o.getId());
+									return game;
+								}).
+				collect(Collectors.toList());
+		gameService.updateGameStatus(games);
+		return games;
+	}
+
 	private List<Game> convertSellHiveGameToGame(List<SellHiveGame> gamesToImport, Map<Long, Seller> sellers) {
 		List<Game> games = new ArrayList<Game>();
 		Game game;

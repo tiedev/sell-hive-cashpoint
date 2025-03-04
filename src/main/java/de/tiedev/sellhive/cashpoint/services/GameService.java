@@ -106,15 +106,15 @@ public class GameService {
 		return gameRepository.findBySold(Boolean.TRUE);
 	}
 
-	public void updateSalesStatus(List<Game> games) {
+	public void updateGameStatus(List<Game> games) {
 		Map<String, Game> gamesWithNewSalesStatus = games.stream().collect(Collectors.toMap(Game::getBarcode, Function.identity()));
 		List<Game> gamesToUpdate = (List<Game>) gameRepository.findAll();
 		Game gameWithNewSalesStatus;
 		for(Game gameToUpdate : gamesToUpdate) {
 			gameWithNewSalesStatus = gamesWithNewSalesStatus.get(gameToUpdate.getBarcode());
-			if (!gameToUpdate.isSold() && gameWithNewSalesStatus != null) {
+			if (gameWithNewSalesStatus != null && GameState.FEE_PAID.equals(gameToUpdate.getGameState())) {
 				if (gameWithNewSalesStatus.isSold()) {
-					gameToUpdate.setSold(gameWithNewSalesStatus.isSold());
+					gameToUpdate.setSold(Boolean.TRUE);
 					gameToUpdate.setGameState(GameState.SOLD);
 				}
 			}

@@ -1,6 +1,7 @@
 package de.tiedev.sellhive.cashpoint.schedulingtasks;
 
 import de.tiedev.sellhive.cashpoint.services.DataExportService;
+import de.tiedev.sellhive.cashpoint.services.DataImportService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,10 +22,15 @@ public class ScheduledTasks {
     @Autowired
     DataExportService dataExportService;
 
-    @Scheduled(fixedRate = 30000)
+    @Autowired
+    DataImportService dataImportService;
+
+    @Scheduled(fixedRate = 300000)
     public void reportCurrentTime() {
         dataExportService.updateSellHiveSoldStatus();
         log.info("The time is now {}", dateFormat.format(new Date()));
         System.out.println("The time is now " + dateFormat.format(new Date()));
+        dataImportService.updateGames();
+        System.out.println("sold status updated in local database");
     }
 }

@@ -61,7 +61,7 @@ public void setFee2fee(BigDecimal fee2fee) {
 	this.fee2fee = fee2fee;
 }
 public boolean hasFee1() {
-	return (feeBase != null) && feeBase != BigDecimal.ZERO;
+	return (feeBase != null) && !BigDecimal.ZERO.equals(feeBase);
 }
 
 public boolean hasFee2() {
@@ -96,6 +96,10 @@ public void setlabelPrintInitY(int labelPrintInitY) {
 
 public String getBarcodePrefixForMultipleSoldArticles() {
 	return environment.getProperty(Constants.AP_BARCODE_PREFIX_FOR_MULTIPLE_SOLD_ARTICLES, String.class);
+}
+
+public String getBarcodePriceSeparatorForMultipleSoldArticles() {
+	return environment.getProperty(Constants.AP_BARCODE_PRICESEPARATOR_FOR_ULTIPLE_SOLD_ARTICLES, String.class);
 }
 
 public long getVhsSellerID() {

@@ -9,6 +9,7 @@ public class Constants {
 	public static String AP_FEE2NUMBER_OF_GAMES="vhs.configuration.fees.fee2NumberOfGames";
 	public static String AP_FEE2FEE="vhs.configuration.fees.fee2fee";
 	public static String AP_BARCODE_PREFIX_FOR_MULTIPLE_SOLD_ARTICLES="vhs.barcode.prefix.multipleSoldArticles";
+	public static final String AP_BARCODE_PRICESEPARATOR_FOR_ULTIPLE_SOLD_ARTICLES = "vhs.barcode.priceseparator.multipleSoldArticles";
 	public static String AP_VHS_SELLERID="vhs.seller.id";
 
 }

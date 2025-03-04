@@ -102,13 +102,17 @@ public class CashPointTabController {
 			Game game = null;
 			/** if multiple sold article, a new game is created for each sale */
 			if (StringUtils.startsWithIgnoreCase(barcode, configurationService.getBarcodePrefixForMultipleSoldArticles())) {
-				String[] splitBarcode = StringUtils.tokenizeToStringArray(barcode, "_");
-				if (splitBarcode.length == 3) {
-					BigDecimal price = new BigDecimal(splitBarcode[2]);
+				String[] splitBarcode = StringUtils.tokenizeToStringArray(barcode, configurationService.getBarcodePriceSeparatorForMultipleSoldArticles());
+				if (splitBarcode.length == 2) {
+					BigDecimal price = new BigDecimal(splitBarcode[1]);
 					//Price format of barcode is in Cent without a separator, so the price is divided by 100 to get the price in Euro
 					price = price.divide(BigDecimal.TEN);
 					price = price.divide(BigDecimal.TEN);
-					game = new Game(splitBarcode[1], barcode + "_" + System.currentTimeMillis(), price, sellerService.findByExternalId(configurationService.getVhsSellerID()));
+					game = new Game();
+					game.setName(splitBarcode[0]);
+					game.setBarcode(barcode + "_" + System.currentTimeMillis());
+					game.setPrice(price);
+					game.setSeller(sellerService.findByExternalId(configurationService.getVhsSellerID()));
 					game.setFee(BigDecimal.ZERO);
 					game.setGameState(GameState.FEE_PAID);
 
